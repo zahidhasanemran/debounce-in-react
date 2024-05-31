@@ -1,18 +1,18 @@
 "use client"
 
-import { futimesSync } from "fs"
+import { ChangeEvent } from "react"
 
 export default function Home() {
 
-  function generateName() {
-    console.log("hi bro");
+  function generateName(event: ChangeEvent<HTMLInputElement>) {
+    console.log(event?.target?.value);
   }
 
-  function generateDebouncedName(cb, time) {
-    let timer;
-    return function (){
+  function generateDebouncedName(cb:(e: ChangeEvent<HTMLInputElement>) => void, time:number) {
+    let timer:ReturnType<typeof setTimeout>;
+    return function (e: ChangeEvent<HTMLInputElement>){
       clearTimeout(timer);
-      timer = setTimeout(cb, time);
+      timer = setTimeout(()=> cb(e), time);
     }
   }
 
